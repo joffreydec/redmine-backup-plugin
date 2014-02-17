@@ -1,0 +1,14 @@
+<% @defaults = Redmine::Plugin::registered_plugins[:redmine_backup_project].settings[:default] %>
+<% def get_setting_val(name)
+  val = !@settings[name].nil? ? @settings[name] : @defaults[name.to_sym]
+  val = true if val === "true"
+  val = false if val === "false"
+  val
+end %>
+<fieldset>
+    <legend>Configuration</legend>
+    <p>
+        <label>Backup URL</label>
+        <%= text_field_tag 'settings[base_url]', get_setting_val('base_url') %>
+    </p>
+</fieldset>
